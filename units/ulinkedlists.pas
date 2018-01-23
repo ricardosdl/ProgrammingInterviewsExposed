@@ -58,21 +58,17 @@ begin
 end;
 
 function SinglyLinkedListInsertInFront(List: PSinglyLinkedList; data: Pointer): PListElement;
-var
-  NewHead: PListElement;
 begin
-  New(NewHead);
-  NewHead^.Data := data;
+  New(Result);
+  Result^.Data := data;
 
-  NewHead^.Next := List^.Head;
-  List^.Head := NewHead;
+  Result^.Next := List^.Head;
+  List^.Head := Result;
 
   if List^.Size = 0 then
-    List^.Tail := NewHead;
+    List^.Tail := Result;
 
   Inc(List^.Size);
-
-  Result := NewHead;
 
 end;
 
