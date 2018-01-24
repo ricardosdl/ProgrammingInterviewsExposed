@@ -28,6 +28,8 @@ function NewSinglyLinkedList(): PSinglyLinkedList;
 procedure DestroySinglyLinkedList(List: PSinglyLinkedList);
 function SinglyLinkedListInsertInFront(List: PSinglyLinkedList; data: Pointer): PListElement;
 function SinglyLinkedListFind(List: PSinglyLinkedList; data: Pointer): PListElement;
+function SinglyLinkedListDeleteElement(List: PSinglyLinkedList; DeleteMe: PListElement): Boolean;
+procedure PrintList(List: PSinglyLinkedList);
 
 
 
@@ -80,6 +82,57 @@ begin
   begin
     Result := Result^.Next;
   end;
+end;
+
+function SinglyLinkedListDeleteElement(List: PSinglyLinkedList;
+  DeleteMe: PListElement): Boolean;
+var
+  CurrentElement: PListElement;
+begin
+  if (List^.Size < 1) or (DeleteMe = nil) then
+    Exit(False);
+
+  if DeleteMe = List^.Head then
+  begin
+    List^.Head := List^.Head^.Next;
+    Dispose(DeleteMe);
+    Exit(True);
+  end;
+
+  CurrentElement := List^.Head;
+
+  while CurrentElement <> nil do
+  begin
+    if CurrentElement^.Next = DeleteMe then
+    begin
+      CurrentElement^.Next := DeleteMe^.Next;
+      if List^.Tail = DeleteMe then
+        List^.Tail := CurrentElement;
+      Dispose(DeleteMe);
+      Exit(True);
+    end;
+    CurrentElement := CurrentElement^.Next;
+  end;
+
+  Result := False;
+
+end;
+
+procedure PrintList(List: PSinglyLinkedList);
+var
+  Element: PListElement;
+  Value: PInteger;
+begin
+
+  Element := List^.Head;
+
+  while Element <> nil do
+  begin
+    Value := PInteger(Element^.Data);
+    WriteLn('Value:', Value^);
+    Element := Element^.next;
+  end;
+
 end;
 
 end.
