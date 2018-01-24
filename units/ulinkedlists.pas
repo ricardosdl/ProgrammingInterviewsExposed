@@ -27,6 +27,7 @@ type
 function NewSinglyLinkedList(): PSinglyLinkedList;
 procedure DestroySinglyLinkedList(List: PSinglyLinkedList);
 function SinglyLinkedListInsertInFront(List: PSinglyLinkedList; data: Pointer): PListElement;
+function SinglyLinkedListFind(List: PSinglyLinkedList; data: Pointer): PListElement;
 
 
 
@@ -70,6 +71,15 @@ begin
 
   Inc(List^.Size);
 
+end;
+
+function SinglyLinkedListFind(List: PSinglyLinkedList; data: Pointer): PListElement;
+begin
+  Result := List^.Head;
+  while (Result <> nil) and (Result^.Data <> data) do
+  begin
+    Result := Result^.Next;
+  end;
 end;
 
 end.
