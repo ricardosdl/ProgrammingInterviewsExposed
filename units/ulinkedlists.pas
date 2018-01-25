@@ -29,6 +29,7 @@ procedure DestroySinglyLinkedList(List: PSinglyLinkedList);
 function SinglyLinkedListInsertInFront(List: PSinglyLinkedList; data: Pointer): PListElement;
 function SinglyLinkedListFind(List: PSinglyLinkedList; data: Pointer): PListElement;
 function SinglyLinkedListDeleteElement(List: PSinglyLinkedList; DeleteMe: PListElement): Boolean;
+function SinglyLinkedListInsertBefore(List: PSinglyLinkedList; InsertBeforeMe: PListElement; data: Pointer): PListElement;
 procedure PrintList(List: PSinglyLinkedList);
 
 
@@ -118,12 +119,57 @@ begin
 
 end;
 
+function SinglyLinkedListInsertBefore(List: PSinglyLinkedList;
+  InsertBeforeMe: PListElement; data: Pointer): PListElement;
+var
+  CurrentElement: PListElement;
+  function NewListElement(Data: Pointer): PListElement;
+  begin
+    New(Result);
+    if Result = nil then
+      Exit;
+
+    Result^.Data := Data;
+
+  end;
+begin
+  Result := nil;
+
+  if List^.Head = InsertBeforeMe then
+  begin
+    Result := SinglyLinkedListInsertInFront(List, data);
+    Exit(Result);
+  end;
+
+  CurrentElement := List^.Head;
+  while CurrentElement <> nil do
+  begin
+    if CurrentElement^.Next = InsertBeforeMe then
+    begin
+      Result := NewListElement(Data);
+
+      if not Assigned(Result) then Exit(Result);
+
+      Result^.Next := CurrentElement^.Next;
+      CurrentElement^.Next := Result;
+      if List^.Tail = CurrentElement then
+      begin
+        List^.Tail := Result;
+      end;
+      Inc(List^.Size);
+      Exit(Result);
+    end;
+    CurrentElement := CurrentElement^.Next;
+  end;
+
+end;
+
 procedure PrintList(List: PSinglyLinkedList);
 var
   Element: PListElement;
   Value: PInteger;
 begin
-
+  WriteLn(Format('===Printing List size:%d===', [List^.Size]));
   Element := List^.Head;
 
   while Element <> nil do
@@ -132,6 +178,7 @@ begin
     WriteLn('Value:', Value^);
     Element := Element^.next;
   end;
+  WriteLn(Format('===End Of List===', [List^.Size]));
 
 end;
 
