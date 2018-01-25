@@ -1,11 +1,11 @@
 {$mode objfpc}{$H+}{$J-}
 program ProgrammingInterviewsExposed;
 
-uses UStandard, ULinkedLists;
+uses sysutils, UStandard, ULinkedLists;
 
 var
   LinkedList: PSinglyLinkedList;
-  Values: array[0..3] of Integer;
+  Values: array[0..5] of Integer;
   Value: PInteger;
   StackValue: Integer;
   Element: PListElement;
@@ -14,6 +14,8 @@ begin
   Values[0] := 1;
   Values[1] := 2;
   Values[2] := 3;
+  Values[3] := 4;
+  Values[4] := 5;
 
 
   LinkedList := NewSinglyLinkedList();
@@ -63,12 +65,30 @@ begin
 
   PrintList(LinkedList);
 
+  WriteLn('===inserting elements before===');
+  DestroySinglyLinkedList(LinkedList);
+  LinkedList := nil;
 
+  LinkedList := NewSinglyLinkedList();
 
+  SinglyLinkedListInsertInFront(LinkedList, @Values[2]);
+  SinglyLinkedListInsertInFront(LinkedList, @Values[1]);
+  SinglyLinkedListInsertInFront(LinkedList, @Values[0]);
 
+  SinglyLinkedListInsertBefore(LinkedList, LinkedList^.Head, @StackValue);
+  PrintList(LinkedList);
 
+  SinglyLinkedListInsertBefore(LinkedList, LinkedList^.Tail, @Values[3]);
+
+  Element := LinkedList^.Head^.Next^.Next;
+  WriteLn('Element value:', PInteger(Element^.Data)^);
+  SinglyLinkedListInsertBefore(LinkedList, Element, @Values[4]);
+  PrintList(LinkedList);
 
   DestroySinglyLinkedList(LinkedList);
+
+
+
 
 
 
