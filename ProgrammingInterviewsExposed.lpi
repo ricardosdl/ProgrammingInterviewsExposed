@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="9"/>
     <PathDelim Value="\"/>
     <General>
       <Flags>
@@ -31,7 +31,7 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <Units Count="3">
+    <Units Count="4">
       <Unit0>
         <Filename Value="ProgrammingInterviewsExposed.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -46,6 +46,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="ULinkedLists"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="units\ustack.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UStack"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
