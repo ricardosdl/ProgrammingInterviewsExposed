@@ -1,7 +1,7 @@
 {$mode objfpc}{$H+}{$J-}
 program ProgrammingInterviewsExposed;
 
-uses sysutils, UStandard, ULinkedLists, UStack;
+uses UStack;
 
 procedure PrintIntegerStackItem(IntegerPointer: Pointer);
 begin
