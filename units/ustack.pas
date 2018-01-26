@@ -38,15 +38,14 @@ end;
 
 function DeleteStack(Stack: PPElement): Boolean;
 var
-  CurrentElement: PElement;
+  NextElement: PElement;
 begin
-
-  CurrentElement := Stack^;
 
   while Stack^ <> nil do
   begin
+    NextElement := Stack^^.Next;
     Dispose(Stack^);
-    Stack^ := CurrentElement^.Next;
+    Stack^ := NextElement;
   end;
 
   Result := True;
